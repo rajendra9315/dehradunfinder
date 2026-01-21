@@ -101,3 +101,44 @@ function clearFilters() {
 
 // Load leads when admin page opens
 loadLeads();
+
+// ================= AI GENERATION =================
+
+// Make function GLOBAL (important)
+window.generateAI = async function () {
+  const collegeName = prompt("Enter College Name (e.g. UPES Dehradun):");
+
+  if (!collegeName) {
+    alert("College name is required");
+    return;
+  }
+
+  const slug = collegeName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+  try {
+    const res = await fetch("/api/ai-generate-college", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("admin_token")
+      },
+      body: JSON.stringify({ collegeName, slug })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "AI generation failed");
+    }
+
+    alert("✅ AI college data generated successfully!");
+
+  } catch (err) {
+    console.error(err);
+    alert("❌ Error: " + err.message);
+  }
+};
+
