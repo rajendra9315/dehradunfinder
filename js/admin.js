@@ -71,5 +71,33 @@ async function loadLeads() {
 
 }
 
+// 🧠 EXPORT TO EXCEL (CSV)
+function exportExcel() {
+  let csv = "Name,Contact,WhatsApp,Course,Qualification,Nationality,City\n";
+
+  document.querySelectorAll("#leadsTable tr").forEach(row => {
+    const cols = row.querySelectorAll("td");
+    const data = Array.from(cols).map(td => `"${td.innerText}"`).join(",");
+    csv += data + "\n";
+  });
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "leads.csv";
+  a.click();
+}
+
+// 🧹 CLEAR FILTERS
+function clearFilters() {
+  document.getElementById("search").value = "";
+  document.getElementById("course").value = "";
+  document.getElementById("nationality").value = "";
+  loadLeads();
+}
+
+
 // Load leads when admin page opens
 loadLeads();
