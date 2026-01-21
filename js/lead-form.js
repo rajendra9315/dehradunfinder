@@ -1,26 +1,18 @@
 document.getElementById("leadForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const data = {
-    name: e.target[0].value,
-    email: e.target[1].value,
-    phone: e.target[2].value,
-    course: e.target[3].value,
-    budget: 150000,
-    city: "Dehradun"
-  };
+  const formData = Object.fromEntries(new FormData(e.target));
 
   const res = await fetch("/api/submit-lead", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+    body: JSON.stringify(formData)
   });
 
   if (res.ok) {
-    alert("Form submitted successfully!");
+    alert("Details submitted successfully!");
     e.target.reset();
   } else {
-    alert("Something went wrong");
+    alert("Submission failed. Try again.");
   }
 });
-
