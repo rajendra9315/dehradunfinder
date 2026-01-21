@@ -69,17 +69,23 @@ try {
   });
 }
 
-
     const { error } = await supabase
-      .from("colleges")
-      .upsert([{
-        name: collegeName,
-        slug,
-        description: content.description,
-        courses: content.courses,
-        seo_title: content.seo_title,
-        seo_description: content.seo_description
-      }]);
+  .from("colleges")
+  .upsert(
+    [{
+      name: collegeName,
+      slug,
+      description: content.description,
+      courses: content.courses,
+      seo_title: content.seo_title,
+      seo_description: content.seo_description,
+      image_urls: content.image_urls || []
+    }],
+    {
+      onConflict: "slug"   // 🔥 THIS IS THE KEY FIX
+    }
+  );
+
 
     if (error) throw error;
 
