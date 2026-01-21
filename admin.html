@@ -46,6 +46,13 @@
 </head>
 <body>
 
+<script>
+if (!localStorage.getItem("admin_token")) {
+  window.location.href = "/admin-login.html";
+}
+</script>
+
+
 <div class="admin-container">
   <h2>Leads Dashboard</h2>
 
