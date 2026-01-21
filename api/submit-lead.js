@@ -11,16 +11,31 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, phone, course, budget, city } = req.body;
+    const {
+      name,
+      cityCountry,
+      contactNumber,
+      whatsappNumber,
+      nationality,
+      preferredCollege,
+      courseInterested,
+      qualification
+    } = req.body;
+
+    if (!name || !contactNumber || !courseInterested) {
+      return res.status(400).json({ error: "Required fields missing" });
+    }
 
     const { error } = await supabase.from("leads").insert([
       {
-        student_name: name,
-        email,
-        phone,
-        course_interest: course,
-        budget,
-        city
+        name,
+        city_country: cityCountry,
+        contact_number: contactNumber,
+        whatsapp_number: whatsappNumber,
+        nationality,
+        preferred_college: preferredCollege,
+        course_interested: courseInterested,
+        qualification
       }
     ]);
 
@@ -32,3 +47,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: err.message });
   }
 }
+
