@@ -1,27 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Get College Guidance</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<h2>Student Details</h2>
-
 <form id="leadForm">
-  <input type="text" placeholder="Full Name" required>
-  <input type="email" placeholder="Email" required>
-  <input type="tel" placeholder="Phone Number" required>
-  <select>
-    <option>Choose Course</option>
+
+  <input name="name" placeholder="Full Name" required />
+
+  <input name="cityCountry" placeholder="City / Country" />
+
+  <input name="contactNumber" placeholder="Contact Number" required />
+
+  <input name="whatsappNumber" placeholder="WhatsApp Number" />
+
+  <input name="nationality" placeholder="Nationality" />
+
+  <input name="preferredCollege" placeholder="Preferred College (if any)" />
+
+  <select name="courseInterested" required>
+    <option value="">Course Interested</option>
     <option>B.Tech</option>
     <option>MBA</option>
     <option>BCA</option>
+    <option>MCA</option>
+    <option>Other</option>
   </select>
-  <button type="submit">Submit</button>
+
+  <input name="qualification" placeholder="Educational Qualification" />
+
+  <button type="submit">Get Guidance</button>
+
 </form>
 
 <script src="js/lead-form.js"></script>
-</body>
-</html>
-
