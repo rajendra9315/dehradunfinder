@@ -2,16 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Admin Panel – Leads</title>
+  <title>Admin Panel – DehradunFinder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/style.css" />
+
   <style>
+    body {
+      background: #f8fafc;
+    }
+
     .admin-container {
       max-width: 1200px;
       margin: 40px auto;
       background: white;
-      padding: 20px;
+      padding: 24px;
       border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .admin-header h2 {
+      margin: 0;
+      color: #16a34a;
+    }
+
+    .actions button {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin-right: 6px;
+    }
+
+    .btn-green {
+      background: #22c55e;
+      color: white;
+    }
+
+    .btn-blue {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .btn-gray {
+      background: #e5e7eb;
     }
 
     .filters {
@@ -21,6 +64,12 @@
       flex-wrap: wrap;
     }
 
+    input, select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -28,7 +77,7 @@
     }
 
     th, td {
-      padding: 10px;
+      padding: 12px;
       border-bottom: 1px solid #e5e7eb;
       text-align: left;
     }
@@ -37,33 +86,39 @@
       background: #f1f5f9;
     }
 
-    input, select {
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid #e5e7eb;
+    tbody tr:hover {
+      background: #f9fafb;
     }
-
-    <button onclick="generateAI()" style="margin-bottom:15px;">
-  Generate AI College Data
-</button>
-
   </style>
 </head>
+
 <body>
 
+<!-- 🔐 PROTECT ADMIN -->
 <script>
 if (!localStorage.getItem("admin_token")) {
   window.location.href = "/admin-login.html";
 }
 </script>
 
-
 <div class="admin-container">
-  <h2>Leads Dashboard</h2>
 
+  <!-- HEADER -->
+  <div class="admin-header">
+    <h2>Admin Dashboard</h2>
+
+    <div class="actions">
+      <button class="btn-green" onclick="generateAI()">+ Generate AI College</button>
+      <button class="btn-blue" onclick="exportExcel()">⬇ Export Excel</button>
+      <button class="btn-gray" onclick="loadLeads()">⟳ Refresh</button>
+      <button class="btn-gray" onclick="clearFilters()">✕ Clear</button>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
   <div class="filters">
-    <input id="search" placeholder="Search by name" />
-    
+    <input id="search" placeholder="Search by student name" />
+
     <select id="course">
       <option value="">All Courses</option>
       <option>B.Tech</option>
@@ -79,9 +134,10 @@ if (!localStorage.getItem("admin_token")) {
       <option>International</option>
     </select>
 
-    <button onclick="loadLeads()">Filter</button>
+    <button class="btn-green" onclick="loadLeads()">Apply</button>
   </div>
 
+  <!-- TABLE -->
   <table>
     <thead>
       <tr>
@@ -96,9 +152,10 @@ if (!localStorage.getItem("admin_token")) {
     </thead>
     <tbody id="leadsTable"></tbody>
   </table>
+
 </div>
 
 <script src="js/admin.js"></script>
+
 </body>
 </html>
-
