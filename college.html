@@ -21,7 +21,31 @@
   </a>
 </div>
 
-<script src="js/college.js"></script>
+<script src="js/colleges-data.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  const college = colleges.find(c => c.slug === slug);
+
+  if (!college) {
+    document.body.innerHTML = "<h2>College not found</h2>";
+  } else {
+    document.getElementById("collegeName").innerText = college.name;
+    document.getElementById("collegeDesc").innerText =
+      `${college.name} is one of the reputed colleges in Dehradun offering quality education.`;
+
+    document.title = `${college.name} | Best College in Dehradun`;
+
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute(
+        "content",
+        `${college.name} – courses, fees, admission details and placements.`
+      );
+  }
+</script>
+
 </body>
 </html>
 
