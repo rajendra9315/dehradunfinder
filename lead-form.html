@@ -1,30 +1,80 @@
-<form id="leadForm">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Get College Guidance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
 
-  <input name="name" placeholder="Full Name" required />
+  <h2>Get Personalized College Guidance</h2>
 
-  <input name="cityCountry" placeholder="City / Country" />
+  <form id="leadForm">
 
-  <input name="contactNumber" placeholder="Contact Number" required />
+    <input name="name" placeholder="Full Name" required />
 
-  <input name="whatsappNumber" placeholder="WhatsApp Number" />
+    <input name="cityCountry" placeholder="City / Country" />
 
-  <input name="nationality" placeholder="Nationality" />
+    <input name="contactNumber" placeholder="Contact Number" required />
 
-  <input name="preferredCollege" placeholder="Preferred College (if any)" />
+    <input name="whatsappNumber" placeholder="WhatsApp Number" />
 
-  <select name="courseInterested" required>
-    <option value="">Course Interested</option>
-    <option>B.Tech</option>
-    <option>MBA</option>
-    <option>BCA</option>
-    <option>MCA</option>
-    <option>Other</option>
-  </select>
+    <!-- Nationality -->
+    <select name="nationality" required>
+      <option value="">Select Nationality</option>
+      <option value="Indian">Indian</option>
+      <option value="International">International</option>
+    </select>
 
-  <input name="qualification" placeholder="Educational Qualification" />
+    <!-- Preferred College -->
+    <input name="preferredCollege" placeholder="Preferred College (if any)" />
 
-  <button type="submit">Get Guidance</button>
+    <!-- Course Interested -->
+    <select name="courseInterested" required>
+      <option value="">Course Interested</option>
+      <option>B.Tech</option>
+      <option>B.E</option>
+      <option>MBA</option>
+      <option>BBA</option>
+      <option>BCA</option>
+      <option>MCA</option>
+      <option>B.Sc</option>
+      <option>B.Com</option>
+      <option>B.Com (Hons)</option>
+      <option>B.A</option>
+      <option>B.A (Hons)</option>
+      <option>B.Ed</option>
+      <option>M.Ed</option>
+      <option>B.Pharmacy</option>
+      <option>D.Pharmacy</option>
+      <option>B.Arch</option>
+      <option>B.Des</option>
+      <option>LLB</option>
+      <option>LLM</option>
+      <option>MBBS</option>
+      <option>BDS</option>
+      <option>GNM</option>
+      <option>ANM</option>
+      <option>Diploma (Engineering)</option>
+      <option>Other</option>
+    </select>
 
-</form>
+    <!-- Qualification -->
+    <select name="qualification" required>
+      <option value="">Educational Qualification</option>
+      <option value="10th">10th</option>
+      <option value="12th">12th</option>
+      <option value="Graduate">Graduate</option>
+      <option value="Post Graduate">Post Graduate</option>
+      <option value="Other">Other</option>
+    </select>
 
-<script src="js/lead-form.js"></script>
+    <button type="submit">Get Guidance</button>
+
+  </form>
+
+  <script src="js/lead-form.js"></script>
+
+</body>
+</html>
