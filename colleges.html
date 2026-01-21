@@ -10,17 +10,26 @@
 <body>
 
 <div class="form-wrapper">
-  <h2>Top Colleges in Dehradun</h2>
-  <p>Choose the best college for your future.</p>
+  <h2>All Colleges in Dehradun</h2>
+  <p>Explore top universities and colleges in Dehradun.</p>
 
-  <ul>
-    <li><a href="college.html?slug=upes">UPES Dehradun</a></li>
-    <li><a href="college.html?slug=graphic-era">Graphic Era University</a></li>
-    <li><a href="college.html?slug=dit">DIT University</a></li>
-    <li><a href="college.html?slug=uttaranchal">Uttaranchal University</a></li>
-    <li><a href="college.html?slug=doon">Doon University</a></li>
-  </ul>
+  <ul id="collegeList"></ul>
 </div>
+
+<script src="js/colleges-data.js"></script>
+<script>
+  const list = document.getElementById("collegeList");
+
+  colleges.forEach(college => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <a href="college.html?slug=${college.slug}">
+        ${college.name}
+      </a>
+    `;
+    list.appendChild(li);
+  });
+</script>
 
 </body>
 </html>
