@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
 <div class="form-wrapper">
@@ -21,31 +22,68 @@
   </a>
 </div>
 
+<!-- Static college list (fallback) -->
 <script src="js/colleges-data.js"></script>
+
 <script>
   const params = new URLSearchParams(window.location.search);
   const slug = params.get("slug");
 
-  const college = colleges.find(c => c.slug === slug);
-
-  if (!college) {
+  if (!slug) {
     document.body.innerHTML = "<h2>College not found</h2>";
   } else {
-    document.getElementById("collegeName").innerText = college.name;
-    document.getElementById("collegeDesc").innerText =
-      `${college.name} is one of the reputed colleges in Dehradun offering quality education.`;
 
-    document.title = `${college.name} | Best College in Dehradun`;
+    // 🔹 1️⃣ TRY TO LOAD AI DATA FIRST
+    fetch(`/api/get-college?slug=${slug}`)
+      .then(res => {
+        if (!res.ok) throw new Error("AI data not found");
+        return res.json();
+      })
+      .then(data => {
+        // ✅ AI DATA FOUND
+        document.getElementById("collegeName").innerText = data.name;
+        document.getElementById("collegeDesc").innerText = data.description;
 
-    document
-      .querySelector('meta[name="description"]')
-      .setAttribute(
-        "content",
-        `${college.name} – courses, fees, admission details and placements.`
-      );
+        document.title = data.seo_title;
+        document
+          .querySelector('meta[name="description"]')
+          .setAttribute("content", data.seo_description);
+
+        const coursesList = document.getElementById("courses");
+        coursesList.innerHTML = "";
+        data.courses.forEach(course => {
+          const li = document.createElement("li");
+          li.innerText = course;
+          coursesList.appendChild(li);
+        });
+      })
+      .catch(() => {
+        // 🔹 2️⃣ FALLBACK TO STATIC DATA
+        const college = colleges.find(c => c.slug === slug);
+
+        if (!college) {
+          document.body.innerHTML = "<h2>College not found</h2>";
+          return;
+        }
+
+        document.getElementById("collegeName").innerText = college.name;
+        document.getElementById("collegeDesc").innerText =
+          `${college.name} is one of the reputed colleges in Dehradun offering quality education.`;
+
+        document.title = `${college.name} | Best College in Dehradun`;
+
+        document
+          .querySelector('meta[name="description"]')
+          .setAttribute(
+            "content",
+            `${college.name} – courses, fees, admission details and placements.`
+          );
+
+        document.getElementById("courses").innerHTML =
+          "<li>B.Tech</li><li>MBA</li><li>BCA</li>";
+      });
   }
 </script>
 
 </body>
 </html>
-
