@@ -1,4 +1,5 @@
 async function loadLeads() {
+
   const search = document.getElementById("search").value;
   const course = document.getElementById("course").value;
   const nationality = document.getElementById("nationality").value;
@@ -8,7 +9,21 @@ async function loadLeads() {
   if (course) params.append("course", course);
   if (nationality) params.append("nationality", nationality);
 
-  const res = await fetch("/api/get-leads?" + params.toString());
+  // 🔐 SECURE FETCH (TOKEN SENT)
+  const res = await fetch("/api/get-leads?" + params.toString(), {
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("admin_token")
+    }
+  });
+
+  // 🚨 If token is invalid or expired
+  if (res.status === 401) {
+    alert("Session expired. Please login again.");
+    localStorage.removeItem("admin_token");
+    window.location.href = "/admin-login.html";
+    return;
+  }
+
   const data = await res.json();
 
   const table = document.getElementById("leadsTable");
@@ -31,5 +46,5 @@ async function loadLeads() {
   });
 }
 
+// Load leads when admin page opens
 loadLeads();
-
