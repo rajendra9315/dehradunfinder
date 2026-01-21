@@ -51,9 +51,24 @@ seo_description
 
     const aiJson = await aiRes.json();
 
-    const content = JSON.parse(
-      aiJson.choices[0].message.content
-    );
+  let rawText = aiJson.choices[0].message.content;
+
+// 🧹 Clean AI output (remove ```json ``` and text)
+rawText = rawText
+  .replace(/```json/gi, "")
+  .replace(/```/g, "")
+  .trim();
+
+let content;
+try {
+  content = JSON.parse(rawText);
+} catch (e) {
+  return res.status(500).json({
+    error: "AI returned invalid JSON",
+    raw: rawText
+  });
+}
+
 
     const { error } = await supabase
       .from("colleges")
