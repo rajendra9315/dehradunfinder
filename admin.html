@@ -42,6 +42,11 @@
       border-radius: 6px;
       border: 1px solid #e5e7eb;
     }
+
+    <button onclick="generateAI()" style="margin-bottom:15px;">
+  Generate AI College Data
+</button>
+
   </style>
 </head>
 <body>
@@ -92,9 +97,6 @@ if (!localStorage.getItem("admin_token")) {
     <tbody id="leadsTable"></tbody>
   </table>
 </div>
-
-<button onclick="generateAI()">Generate AI College Data</button>
-
 
 <script src="js/admin.js"></script>
 </body>
