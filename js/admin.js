@@ -44,6 +44,31 @@ async function loadLeads() {
 
     table.appendChild(row);
   });
+
+  async function generateAI() {
+  const collegeName = prompt("Enter College Name:");
+  if (!collegeName) return;
+
+  const slug = collegeName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-");
+
+  const res = await fetch("/api/ai-generate-college", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("admin_token")
+    },
+    body: JSON.stringify({ collegeName, slug })
+  });
+
+  if (res.ok) {
+    alert("AI data generated successfully!");
+  } else {
+    alert("AI generation failed");
+  }
+}
+
 }
 
 // Load leads when admin page opens
